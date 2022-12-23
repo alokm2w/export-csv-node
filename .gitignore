@@ -1,5 +1,3 @@
-# export-csv-node
-
 # Dependency directories
 node_modules/
 
@@ -13,5 +11,5 @@ node_modules/
 ordersList/
 productszip/
 
-# lock file
+#lock file
 package-lock.json

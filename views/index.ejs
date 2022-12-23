@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" />
+  <title>
+    <%= title %>
+  </title>
+</head>
+
+<body>
+  <%- include('./partials/nav'); %>
+    <div class="container mt-2">
+      <div class="card">
+        <div class="card-header">
+          Featured
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <h5 class="card-title">Orders</h5>
+              <a href="/api/convertcsv" class="btn btn-sm btn-primary">Generate CSV</a>
+              <% if (orderFileLink !='' ) { %>
+                <div class="card-text mt-4">
+                  <p>file generated successfully link:</p>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" value="<%= orderFileLink %>.zip" id="linkInput" readonly>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-primary" type="button" onclick="myFunction()">Copy link</button>
+                    </div>
+                  </div>
+                    <p class="d-inline-block">or Download file:</p>
+                    <a class="btn btn-sm btn-outline-primary" href="/download-orders-list/<%= filename %>">Download</a>
+                </div>
+              <% } %>
+            </div>
+            <div class="col-md-6">
+              <h5 class="card-title">Products</h5>
+              <a href="/api/csv-file-product" class="btn btn-sm btn-primary">Generate CSV</a>
+              <% if (productFileLink !='' ) { %>
+                <div class="card-text mt-4">
+                  <p>file generated successfully link:</p>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" value="<%= productFileLink %>.zip" id="linkInput" readonly>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-primary" type="button" onclick="myFunction()">Copy link</button>
+                    </div>
+                  </div>
+                  <p>or Download file:</p>
+                  <a class="btn btn-sm btn-outline-primary" href="/download-products/<%= filename %>">Download</a>
+                </div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <script>
+          function myFunction() {
+            // Get the text field
+            var copyText = document.getElementById("linkInput");
+
+            // Select the text field
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+
+            // Copy the text inside the text field
+            navigator.clipboard.writeText(copyText.value);
+
+            // Alert the copied text
+            alert("Copied the text: " + copyText.value);
+          }
+        </script>
+      </footer>
+    </div>
+</body>
+
+</html>

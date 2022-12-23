@@ -1,0 +1,29 @@
+{
+  "name": "export",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --max-old-space-size=12000 app.js"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "fs": "0.0.1-security",
+    "html-entities-decoder": "^1.0.2",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "json2csv": "^5.0.7",
+    "morgan": "~1.9.1",
+    "mysql2": "^2.3.3",
+    "node-cron": "^3.0.2",
+    "nodemailer": "^6.8.0",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7",
+    "rimraf": "^3.0.2",
+    "zip-a-folder": "^1.1.5"
+  }
+}
