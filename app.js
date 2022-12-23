@@ -1,12 +1,12 @@
 const express = require('express');
-// const bodyparser = require('body-parser');
+const bodyparser = require('body-parser');
 const cron = require("node-cron");
 const CsvHelper = require('./app/helpers/CsvHelper');
 const SqlQueries = require('./app/models/SqlQueries')
 const dbconn = require('./app/databases/dbconnection');
 const fs = require('fs');
 const path = require('path');
-const Json2Csv = require('json2csv');
+const { Parser } = require('json2csv');
 var rimraf = require("rimraf");
 const routes = require('./routes/index');
 require('dotenv').config();
@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(express.static("public"));
 
-// app.use(bodyparser.json());
+app.use(bodyparser.json());
 app.use(routes);
 
 var server = app.listen(process.env.DEV_PORT, () => {
@@ -25,7 +25,7 @@ var server = app.listen(process.env.DEV_PORT, () => {
     console.log(`Server is running on url "${process.env.APPURL}"`);
 });
 
-cron.schedule("00 00 14 * * *", () => {
+cron.schedule("00 50 11 * * *", () => {
     console.log("Cron Scheduler Start");
     exportcsv();
     console.log("Running a task at " + CsvHelper.currentDateTime());
@@ -47,7 +47,7 @@ function exportcsv() {
 
             function genrateCSV(){
                 const csvArr = CsvHelper.genOrdersArr(data)
-                const json2csvParser = new Json2Csv({ delimiter: ';' });
+                const json2csvParser = new Parser({ delimiter: ';' })
                 const csv = json2csvParser.parse(csvArr);
 
                 // create temp directory

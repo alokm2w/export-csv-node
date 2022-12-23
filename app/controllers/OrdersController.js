@@ -27,7 +27,7 @@ module.exports =  async (req, res) => {
             function genrateCSV(){
                 console.log('start generating csv', CsvHelper.currentDateTime());
                 const csvArr = CsvHelper.genOrdersArr(data)
-                const json2csvParser = new Parser({ delimiter: ';' });
+                const json2csvParser = new Parser({ delimiter: ';' })
                 const csv = json2csvParser.parse(csvArr);
 
                 // create temp directory
