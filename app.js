@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyparser = require('body-parser');
+// const bodyparser = require('body-parser');
 const cron = require("node-cron");
 const CsvHelper = require('./app/helpers/CsvHelper');
 const SqlQueries = require('./app/models/SqlQueries')
@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(express.static("public"));
 
-app.use(bodyparser.json());
+// app.use(bodyparser.json());
 app.use(routes);
 
 var server = app.listen(process.env.DEV_PORT, () => {
@@ -25,7 +25,7 @@ var server = app.listen(process.env.DEV_PORT, () => {
     console.log(`Server is running on url "${process.env.APPURL}"`);
 });
 
-cron.schedule("00 50 11 * * *", () => {
+cron.schedule("00 00 14 * * *", () => {
     console.log("Cron Scheduler Start");
     exportcsv();
     console.log("Running a task at " + CsvHelper.currentDateTime());
