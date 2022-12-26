@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const dbconn = require('../databases/dbconnection');
-const { Parser } = require('json2csv');
+var csvwriter = require('csvwriter');
 const fs = require('fs');
 const SqlQueries  = require('../models/SqlQueries');
 const CsvHelper = require('../helpers/CsvHelper');
@@ -27,17 +27,17 @@ module.exports =  async (req, res) => {
             function genrateCSV(){
                 console.log('start generating csv', CsvHelper.currentDateTime());
                 const csvArr = CsvHelper.genOrdersArr(data)
-                const json2csvParser = new Parser({ delimiter: ';' })
-                const csv = json2csvParser.parse(csvArr);
 
-                // create temp directory
-                const dir = './temp'
-                if (!fs.existsSync(dir)){
-                    fs.mkdirSync(dir);
-                }
+                csvwriter(csvArr, {delimiter: ';', decimalSeparator: ','}, function(err, csv) {
+                    // create temp directory
+                    const dir = './temp'
+                    if (!fs.existsSync(dir)){
+                        fs.mkdirSync(dir);
+                    }
 
-                // store csv file into temp dir
-                fs.writeFileSync(`temp/${filename}.csv`, csv)
+                    // store csv file into temp dir
+                    fs.writeFileSync(`temp/${filename}.csv`, csv)
+                })
 
                 // convert to zip
                 CsvHelper.genCsvToZip(zipFileDir, filename)
